@@ -1,49 +1,58 @@
 <?php
 
 $books = [
-    1 => [
+    [
         'title' => 'The Great Gatsby',
         'author' => 'F. Scott Fitzgerald'
     ],
-    2 => [
+    [
         'title' => '1984',
         'author' => 'George Orwell'
     ],
-    3 => [
+    [
         'title' => 'Pride and Prejudice',
         'author' => 'Jane Austen'
     ]
 ];
 
 
-function showAllBooks($books) {
+function showAllBooks($books)
+{
     foreach ($books as $id => $book) {
-        // need to display each book here
+        // need to display each book here | ok
     }
 }
 
-function showBook() {
+function showBook($books)
+{
     $id = readline("Enter book id: ");
+    if (!isset($books[$id])) {
+        echo "Book not found.\n";
+        return;
+    }
     displayBook($id, $books[$id]);
 }
 
-function addBook(&$books) {
+function addBook(&$books)
+{
     $title = readline("Enter title: ");
+    $author = readline("Enter author: ");
     $books[] = ['title' => $title, 'author' => $author];
 }
 
-function deleteBook(&$books) {
+function deleteBook(&$books)
+{
     $id = readline("Enter book ID you want to delete: ");
 }
 
-function displayBook($id, $book) {
-    echo "ID: {$id} // Title: ". $book['title'] . " // Author: " . $book['author']. "\n\n";
+function displayBook($id, $book)
+{
+    echo "ID: {$id} // Title: " . $book['title'] . " // Author: " . $book['author'] . "\n\n";
 }
 
 
 echo "\n\nWelcome to the Library\n";
-$continue = true; 
-do {
+while (true) {
     echo "\n\n";
     echo "1 - show all books\n";
     echo "2 - show a book\n";
@@ -67,13 +76,11 @@ do {
             break;
         case 5:
             echo "Goodbye!\n";
-            $continue = false;
-            break;
+            break 2;
         case 13:
             print_r($books); // hidden option to see full $books content
             break;
         default:
             echo "Invalid choice\n";
     };
-
-} while ($continue == true);
+}
