@@ -2,30 +2,34 @@
 
 $tasks = [
     1 => ['status' => 'done', 'priority' => 2, 'content' => 'konsultācija 15:10'],
-    2 => ['status' => 'inprogress', 'priority' => 5, 'content'=> 'aizbraukt uz veikalu 19:00'],
-    3 => ['priority' => 5, 'content'=> 'aizbraukt uz veikalu 19:00'],
+    2 => ['status' => 'inprogress', 'priority' => 5, 'content' => 'aizbraukt uz veikalu 19:00'],
+    3 => ['priority' => 5, 'content' => 'aizbraukt uz veikalu 19:00'],
 ];
 
-function displayTask($task) {
+function displayTask($task)
+{
     echo "ID: {$task['id']}, CONTENT: {$task['content']}, STATUS: {$task['status']}\n";
 }
 
-function viewTask(&$tasks) {
+function viewTask(&$tasks)
+{
     $id = readline("Ievadi uzdevuma ID: ");
     if (isset($tasks[$id])) {
         displayTask($tasks[$id]);
     } else {
-        echo "Uzdevums nav atrasts\n"; 
+        echo "Uzdevums nav atrasts\n";
     }
 }
 
-function addTask(&$tasks) {
+function addTask(&$tasks)
+{
     readline("Ievadiet jaunu uzdevumu: ");
-    $tasks[] = [ 'status' => 'new', 'priority' => 5, 'content' => $newContent ];
+    $tasks[] = ['status' => 'new', 'priority' => 5, 'content' => $newContent];
     echo "Uzdevums pievienots\n";
 }
 
-function deleteTask(&$tasks) {
+function deleteTask(&$tasks)
+{
     $id = input("Ievadiet dzēšamā uzdevuma ID: ");
     if (isset($tasks[$id])) {
         unset($tasks);
@@ -35,7 +39,8 @@ function deleteTask(&$tasks) {
     }
 }
 
-function editTask(&$tasks) {
+function editTask(&$tasks)
+{
     $id = readline("Ievadi uzdevuma ID, kuru vēlies mainīt: ");
     if (isset($tasks[$id])) {
         $newContent = readline("Ievadīt jaunu saturu: ");
@@ -50,7 +55,8 @@ function editTask(&$tasks) {
     }
 }
 
-function setStatus(&$tasks) {
+function setStatus(&$tasks)
+{
     $id = readline("Ievadi uzdevuma ID, kuram vēlies mainīt statusu: ");
     if (isset($tasks[$id])) {
         $newStatus = readline("Ievadi jauno statusu (new, done, inprogress): ");
@@ -65,56 +71,43 @@ function setStatus(&$tasks) {
     }
 }
 
-function displayAllTasks(&$tasks) {
+function displayAllTasks(&$tasks)
+{
     foreach ($tasks as $task) {
         displayTask($task);
     }
 }
 
-$continue = true;
-
-do {
+while (true) {
     echo "UZDEVUMU PĀRVALDNIEKS\n";
-    echo "Apskatīt => 1\n";
+    echo "Apskatīt => 1\n"; // ???
     echo "Pievienot => 2\n";
     echo "Dzēst => 3\n";
     echo "Rediģēt => 4\n";
-    echo "Rādīt visus => 5\n";
-    echo "Uzstādīt statusu => 6\n";
-    echo "Iziet => 7\n";
+    echo "Rādīt visus => 5\n"; // ???
+    echo "Iziet => 6\n";
     $choice = readline("Izvēlies darbības numuru: ");
 
-    echo "==========\n";
-    try {
-        switch ($choice) {
-            case 1:
-                viewTask($tasks);
-                break;
-            case 2:
-                addTask($tasks);
-                break;
-            case 3:
-                deleteTask($tasks);
-                break;
-            case 4:
-                editTask($tasks);
-                break;
-            case 5:
-                displayAllTasks($tasks);
-                break;
-            case 6:
-                //
-                break;
-            case 7:
-                echo "Uz redzēšanos!\n";
-                $continue = false;
-                break;
-            default:
-                echo "Invalid option selected\n";
-        }
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    switch ($choice) {
+        case 1:
+            viewTask($tasks);
+            break;
+        case 2:
+            addTask($tasks);
+            break;
+        case 3:
+            deleteTask($tasks);
+            break;
+        case 4:
+            editTask($tasks);
+            break;
+        case 5:
+            displayAllTasks($tasks);
+            break;
+        case 6:
+            echo "Uz redzēšanos!\n";
+            break 2;
+        default:
+            echo "Invalid option selected\n";
     }
-
-    echo "==========\n\n";
-} while ($continue);
+}
