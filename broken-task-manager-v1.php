@@ -15,7 +15,7 @@ function viewTask(&$tasks) {
     if (isset($tasks[$id])) {
         displayTask($tasks[$id]);
     } else {
-        echo "Uzdevums nav atrasts\n";
+        echo "Uzdevums nav atrasts\n"; 
     }
 }
 
