@@ -1,20 +1,23 @@
 <?php
 
-$books = [
-    [
-        'title' => 'The Great Gatsby',
-        'author' => 'F. Scott Fitzgerald'
-    ],
-    [
-        'title' => '1984',
-        'author' => 'George Orwell'
-    ],
-    [
-        'title' => 'Pride and Prejudice',
-        'author' => 'Jane Austen'
-    ]
-];
+// $books = [
+//     [
+//         'title' => 'The Great Gatsby',
+//         'author' => 'F. Scott Fitzgerald'
+//     ],
+//     [
+//         'title' => '1984',
+//         'author' => 'George Orwell'
+//     ],
+//     [
+//         'title' => 'Pride and Prejudice',
+//         'author' => 'Jane Austen'
+//     ]
+// ];
 
+$json = file_get_contents("data.json");
+
+$books = json_decode($json, true);
 
 function showAllBooks($books)
 {
