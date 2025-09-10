@@ -1,12 +1,12 @@
 <?php
 
 $tasks = [
-    ['id' => '1', 'status' => 'done', 'priority' => 2, 'content' => 'konsultācija 15:10'],
-    ['id' => '2', 'status' => 'inprogress', 'priority' => 5, 'content' => 'aizbraukt uz veikalu 19:00'],
-    ['id' => '3', 'status' => 'new', 'priority' => 5, 'content' => 'aizbraukt uz veikalu 19:00']
+    ['id' => 1, 'status' => 'done', 'priority' => 2, 'content' => 'konsultācija 15:10'],
+    ['id' => 2, 'status' => 'inprogress', 'priority' => 5, 'content' => 'aizbraukt uz veikalu 19:00'],
+    ['id' => 3, 'status' => 'new', 'priority' => 5, 'content' => 'aizbraukt uz veikalu 19:00']
 ];
 
-function displayTask($tasks)
+function displayTask(&$tasks)
 {
     foreach ($tasks as $task) {
         echo "ID: " . $task['id'] . ", CONTENT: " . $task['content'] . ", STATUS: " . $task['status'] . "\n";
@@ -87,7 +87,8 @@ while (true) {
     echo "Dzēst => 3\n";
     echo "Rediģēt => 4\n";
     echo "Rādīt visus => 5\n"; // ???
-    echo "Iziet => 6\n";
+    echo "mainit statusu => 6\n";
+    echo "Iziet => 7\n";
     $choice = readline("Izvēlies darbības numuru: ");
 
     switch ($choice) {
@@ -107,6 +108,9 @@ while (true) {
             displayAllTasks($tasks);
             break;
         case 6:
+            setStatus($tasks);
+            break;
+        case 7:
             echo "Uz redzēšanos!\n";
             break 2;
         default:
