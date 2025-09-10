@@ -15,9 +15,38 @@
 //     ]
 // ];
 
-$json = file_get_contents("data.json");
+function csv_to_array_from_string($csv_string)
+{
+    $lines = explode("\n", $csv_string);
+    $header = str_getcsv(array_shift($lines));
+    $data = [];
 
-$books = json_decode($json, true);
+    foreach ($lines as $line) {
+        if (!empty($line)) {
+            $data[] = array_combine($header, str_getcsv($line));
+        }
+    }
+
+    return $data;
+}
+
+function array_to_csv_string($array)
+{
+    $csv = [];
+    $csv[] = implode(',', array_keys($array[0]));
+
+    foreach ($array as $row) {
+        $csv[] = implode(',', $row);
+    }
+
+    return implode("\n", $csv);
+}
+
+// $json = file_get_contents("data.json");
+$csv = file_get_contents('data.csv');
+
+// $books = json_decode($json, true);
+$books = csv_to_array_from_string($csv);
 
 function showAllBooks($books)
 {
